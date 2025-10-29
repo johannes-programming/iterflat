@@ -9,7 +9,7 @@ authors = [
     { email = "johannes.programming@gmail.com", name = "Johannes" },
 ]
 classifiers = [
-    "Development Status :: 1 - Planning",
+    "Development Status :: 2 - Pre-Alpha",
     "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
     "Operating System :: OS Independent",
@@ -24,7 +24,7 @@ keywords = []
 name = "iterchain"
 readme = "README.rst"
 requires-python = ">=3.11"
-version = "0.0.0.dev0"
+version = "0.0.1"
 
 [project.license]
 file = "LICENSE.txt"
@@ -33,3 +33,4 @@ file = "LICENSE.txt"
 Download = "https://pypi.org/project/iterchain/#files"
 Index = "https://pypi.org/project/iterchain/"
 Source = "https://github.com/johannes-programming/iterchain/"
+Website = "https://iterchain.johannes-programming.online/"

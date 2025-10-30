@@ -6,7 +6,7 @@ __all__ = ["iterflat"]
 
 def iterflat(data: Any, *, depth: SupportsIndex = 1) -> Generator[Any, None, None]:
     n: int
-    x: Iterable
+    ans: Iterable
     n = operator.index(depth)
     if n < -1:
         yield iterflat(data, depth=n + 1)
@@ -14,8 +14,8 @@ def iterflat(data: Any, *, depth: SupportsIndex = 1) -> Generator[Any, None, Non
     if n == -1:
         yield data
         return
-    if n == 0:
-        yield from data
-        return
-    for x in data:
-        yield from iterflat(x, depth=n - 1)
+    ans = data
+    while n > 0:
+        ans = (item for sub in ans for item in sub)
+        n -= 1
+    yield from ans

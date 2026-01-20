@@ -4,38 +4,40 @@ from typing import *
 
 from iterflat.core import iterflat
 
+__all__ = ["TestIterflat"]
+
 
 class TestIterflat(unittest.TestCase):
     def test_depth_1_flattens_one_level(self: Self) -> None:
-        data: list
+        data: list[list[int]]
         data = [[1, 2], [3], []]
         self.assertEqual(list(iterflat(data, depth=1)), [1, 2, 3])
 
     def test_depth_2_flattens_two_levels(self: Self) -> None:
-        data: list
+        data: list[list[int]]
         data = [[[1], [2, 3]], [[4]], []]
         self.assertEqual(list(iterflat(data, depth=2)), [1, 2, 3, 4])
 
     def test_inv(self: Self) -> None:
-        data: list
+        data: list[list[int]]
         data = [[[1], [2, 3]], [[4]], []]
         for n in range(5):
             self.assertEqual(list(iterflat(iterflat(data, depth=-n), depth=n)), data)
 
     def test_depth_0_iterates_input(self: Self) -> None:
-        data: tuple
+        data: tuple[int, int, int]
         data = (1, 2, 3)
         self.assertEqual(list(iterflat(data, depth=0)), [1, 2, 3])
 
     def test_depth_minus_1_yields_data_as_single_element(self: Self) -> None:
-        data: list
+        data: list[int]
         out: list
         data = [1, 2, 3]
         out = list(iterflat(data, depth=-1))
         self.assertEqual(out, [data])  # data yielded as a single item
 
     def test_depth_less_than_minus_1_wraps_again(self: Self) -> None:
-        data: list
+        data: list[int]
         inner: list
         out: list
         data = [1, 2]
@@ -52,12 +54,13 @@ class TestIterflat(unittest.TestCase):
             def __index__(self: Self) -> int:
                 return 1  # act like depth=1
 
-        data: list
+        data: list[list[int]]
         data = [[10], [20, 30]]
         self.assertEqual(list(iterflat(data, depth=DepthLike())), [10, 20, 30])
 
     def test_generator_input_with_depth_0(self: Self) -> None:
-        def gen():
+        def gen() -> Generator:
+            i: int
             for i in range(3):
                 yield i
 
@@ -85,7 +88,7 @@ class TestIterflat(unittest.TestCase):
 
     def test_large_depth_exact(self: Self) -> None:
         # Perfectly nested 3 levels
-        data: list
+        data: list[list[list[list[int]]]]
         data = [[[[1], [2]], [[3]]]]
         self.assertEqual(list(iterflat(data, depth=3)), [1, 2, 3])
 

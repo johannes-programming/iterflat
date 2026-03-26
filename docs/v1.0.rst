@@ -1,0 +1,54 @@
+Introduction
+------------
+
+This project flattens nested iterables.
+
+Links
+-----
+
+- Download: https://pypi.org/project/iterflat/#files
+- Index: https://pypi.org/project/iterflat/
+- Source: https://github.com/johannes-programming/iterflat/
+- Website: https://iterflat.johannes-programming.online/
+
+Installation
+------------
+
+To install iterflat, you can use pip. Open your terminal and run:
+
+.. code-block:: shell
+
+    pip install iterflat
+
+Features
+--------
+
+``iterflat.iterflat(data: Any, *, depth: SupportsIndex = 1) -> Generator[Any, None, None]``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This generator flattens nested iterables.
+
+``iterflat.test() -> unittest.TextTestRunner``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This project can be tested through its test function.
+
+.. code-block:: python
+
+    import iterflat
+    iterflat.test()
+
+License
+-------
+
+This project is licensed under the MIT License.
+
+Impressum
+---------
+
+**Johannes Programming**
+
+- Name: Johannes
+- Email: johannes.programming@gmail.com
+- Homepage: https://www.johannes-programming.online/
+- Gravatar: https://www.johannes-programming.fyi/

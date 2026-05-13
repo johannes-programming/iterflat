@@ -1,12 +1,15 @@
 import operator
-from typing import *
+from collections.abc import Generator
+from typing import Any, SupportsIndex
 
 __all__ = ["iterflat"]
 
 
-def iterflat(data: Any, *, depth: SupportsIndex = 1) -> Generator[Any, None, None]:
+def iterflat(
+    data: Any, *, depth: SupportsIndex = 1
+) -> Generator[Any, None, None]:
     n: int
-    x: Iterable
+    x: Any
     n = operator.index(depth)
     if n < -1:
         yield iterflat(data, depth=n + 1)

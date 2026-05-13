@@ -3,6 +3,10 @@ Introduction
 
 This project flattens nested iterables.
 
+.. container:: warning
+
+    **Warning:** The minor version ``1.0`` of ``iterflat`` has reached end-of-life.
+
 Installation
 ------------
 

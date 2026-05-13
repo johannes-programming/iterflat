@@ -3,9 +3,14 @@ Introduction
 
 This project flattens nested iterables.
 
-.. container:: warning
+Typing
+------
 
-    **Warning:** The minor version ``1.0`` of ``iterflat`` has reached end-of-life.
+The typing conforms (not strictly) to ``mypy``.
+
+.. container:: versionadded
+
+    **Added in version 1.1.**
 
 Installation
 ------------

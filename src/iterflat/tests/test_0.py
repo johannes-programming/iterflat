@@ -14,12 +14,12 @@ class TestIterflat(unittest.TestCase):
         self.assertEqual(list(iterflat(data, depth=1)), [1, 2, 3])
 
     def test_depth_2_flattens_two_levels(self: Self) -> None:
-        data: list[list[int]]
+        data: list[list[list[int]]]
         data = [[[1], [2, 3]], [[4]], []]
         self.assertEqual(list(iterflat(data, depth=2)), [1, 2, 3, 4])
 
     def test_inv(self: Self) -> None:
-        data: list[list[int]]
+        data: list[list[list[int]]]
         data = [[[1], [2, 3]], [[4]], []]
         for n in range(5):
             self.assertEqual(list(iterflat(iterflat(data, depth=-n), depth=n)), data)

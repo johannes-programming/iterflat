@@ -2,7 +2,6 @@
 **/*.cfg
 **/*.css
 **/*.html
-**/*.in
 **/*.js
 **/*.json
 **/*.py
@@ -11,5 +10,3 @@
 **/*.txt
 **/*.typed
 **/*.zsh
-**/.gitignore
-**/Makefile

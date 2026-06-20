@@ -1,6 +1,7 @@
 import types
 import unittest
-from typing import *
+from collections.abc import Generator
+from typing import Any, Self
 
 from iterflat.core import iterflat
 
@@ -14,15 +15,17 @@ class TestIterflat(unittest.TestCase):
         self.assertEqual(list(iterflat(data, depth=1)), [1, 2, 3])
 
     def test_depth_2_flattens_two_levels(self: Self) -> None:
-        data: list[list[int]]
+        data: Any
         data = [[[1], [2, 3]], [[4]], []]
         self.assertEqual(list(iterflat(data, depth=2)), [1, 2, 3, 4])
 
     def test_inv(self: Self) -> None:
-        data: list[list[int]]
+        data: list[list[list[int]]]
         data = [[[1], [2, 3]], [[4]], []]
         for n in range(5):
-            self.assertEqual(list(iterflat(iterflat(data, depth=-n), depth=n)), data)
+            self.assertEqual(
+                list(iterflat(iterflat(data, depth=-n), depth=n)), data
+            )
 
     def test_depth_0_iterates_input(self: Self) -> None:
         data: tuple[int, int, int]
@@ -31,15 +34,15 @@ class TestIterflat(unittest.TestCase):
 
     def test_depth_minus_1_yields_data_as_single_element(self: Self) -> None:
         data: list[int]
-        out: list
+        out: list[Any]
         data = [1, 2, 3]
         out = list(iterflat(data, depth=-1))
         self.assertEqual(out, [data])  # data yielded as a single item
 
     def test_depth_less_than_minus_1_wraps_again(self: Self) -> None:
         data: list[int]
-        inner: list
-        out: list
+        inner: list[Any]
+        out: list[Any]
         data = [1, 2]
         out = list(iterflat(data, depth=-2))
         # Should yield exactly one element, which itself is a generator
@@ -59,7 +62,7 @@ class TestIterflat(unittest.TestCase):
         self.assertEqual(list(iterflat(data, depth=DepthLike())), [10, 20, 30])
 
     def test_generator_input_with_depth_0(self: Self) -> None:
-        def gen() -> Generator:
+        def gen() -> Generator[int, None, None]:
             i: int
             for i in range(3):
                 yield i

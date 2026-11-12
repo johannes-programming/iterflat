@@ -1,2 +1,3 @@
 recursive-include docs *.rst
-recursive-include src/iterflat *.toml
+recursive-include src *.toml
+recursive-include tests *.toml

@@ -1,8 +1,10 @@
+from __future__ import annotations
+
+__all__: list[str] = ["iterflat"]
+
 import operator
 from collections.abc import Generator
 from typing import Any, SupportsIndex
-
-__all__ = ["iterflat"]
 
 
 def iterflat(

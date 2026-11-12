@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+__all__: list[str] = ["TestIterflat"]
+
 import types
 import unittest
 from collections.abc import Generator
@@ -5,41 +9,42 @@ from typing import Any, Self
 
 from iterflat.core import iterflat
 
-__all__ = ["TestIterflat"]
-
 
 class TestIterflat(unittest.TestCase):
-    def test_depth_1_flattens_one_level(self: Self) -> None:
+    def test_depth_1_flattens_one_level(self: Self, /) -> None:
         data: list[list[int]]
         data = [[1, 2], [3], []]
         self.assertEqual(list(iterflat(data, depth=1)), [1, 2, 3])
 
-    def test_depth_2_flattens_two_levels(self: Self) -> None:
+    def test_depth_2_flattens_two_levels(self: Self, /) -> None:
         data: list[list[list[int]]]
         data = [[[1], [2, 3]], [[4]], []]
         self.assertEqual(list(iterflat(data, depth=2)), [1, 2, 3, 4])
 
-    def test_inv(self: Self) -> None:
+    def test_inv(self: Self, /) -> None:
         data: list[list[list[int]]]
+        n: int
         data = [[[1], [2, 3]], [[4]], []]
         for n in range(5):
             self.assertEqual(
                 list(iterflat(iterflat(data, depth=-n), depth=n)), data
             )
 
-    def test_depth_0_iterates_input(self: Self) -> None:
+    def test_depth_0_iterates_input(self: Self, /) -> None:
         data: tuple[int, int, int]
         data = (1, 2, 3)
         self.assertEqual(list(iterflat(data, depth=0)), [1, 2, 3])
 
-    def test_depth_minus_1_yields_data_as_single_element(self: Self) -> None:
+    def test_depth_minus_1_yields_data_as_single_element(
+        self: Self, /
+    ) -> None:
         data: list[int]
         out: list[Any]
         data = [1, 2, 3]
         out = list(iterflat(data, depth=-1))
         self.assertEqual(out, [data])  # data yielded as a single item
 
-    def test_depth_less_than_minus_1_wraps_again(self: Self) -> None:
+    def test_depth_less_than_minus_1_wraps_again(self: Self, /) -> None:
         data: list[int]
         inner: list[Any]
         out: list[Any]
@@ -52,16 +57,16 @@ class TestIterflat(unittest.TestCase):
         inner = list(out[0])
         self.assertEqual(inner, [data])
 
-    def test_supports_index_custom_type(self: Self) -> None:
+    def test_supports_index_custom_type(self: Self, /) -> None:
         class DepthLike:
-            def __index__(self: Self) -> int:
+            def __index__(self: Self, /) -> int:
                 return 1  # act like depth=1
 
         data: list[list[int]]
         data = [[10], [20, 30]]
         self.assertEqual(list(iterflat(data, depth=DepthLike())), [10, 20, 30])
 
-    def test_generator_input_with_depth_0(self: Self) -> None:
+    def test_generator_input_with_depth_0(self: Self, /) -> None:
         def gen() -> Generator[int, None, None]:
             i: int
             for i in range(3):
@@ -69,7 +74,7 @@ class TestIterflat(unittest.TestCase):
 
         self.assertEqual(list(iterflat(gen(), depth=0)), [0, 1, 2])
 
-    def test_strings(self: Self) -> None:
+    def test_strings(self: Self, /) -> None:
         # depth=0 iterates the string
         self.assertEqual(list(iterflat("ab", depth=0)), ["a", "b"])
         # depth=-1 treats the whole string as a single element
@@ -84,12 +89,12 @@ class TestIterflat(unittest.TestCase):
         with self.assertRaises(TypeError):
             list(iterflat([1, 2], depth=1))
 
-    def test_empty_input(self: Self) -> None:
+    def test_empty_input(self: Self, /) -> None:
         self.assertEqual(list(iterflat([], depth=0)), [])
         self.assertEqual(list(iterflat([], depth=1)), [])
         self.assertEqual(list(iterflat([], depth=2)), [])
 
-    def test_large_depth_exact(self: Self) -> None:
+    def test_large_depth_exact(self: Self, /) -> None:
         # Perfectly nested 3 levels
         data: list[list[list[list[int]]]]
         data = [[[[1], [2]], [[3]]]]
